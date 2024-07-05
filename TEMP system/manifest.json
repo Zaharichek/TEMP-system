@@ -1,0 +1,43 @@
+{
+	"format_version": 2,
+	"header":{
+		"description":"TEMP system",
+		"name":"TEMP system ALPHA",
+		"min_engine_version": [
+		1,
+		20,
+		50
+		],
+		"uuid":"f26db4fd-692e-44c8-821f-8993e8c7f0cb",
+		"version":[
+		1,
+		0,
+		0
+		]
+	},	
+ 	"modules": [
+	{
+	"description":"TEMP system",
+	"type":"data",
+	"uuid":"cc1f65e5-3a71-4ca7-ad9e-9215852f2861",
+	"version":[
+		1,
+		0,
+		0
+		]
+	},
+	{
+		"uuid": "5fac95b1-f29c-4feb-be40-d31dd978fc4d",
+		"version": [ 1, 0, 0 ],
+		"type": "script",
+		"language": "javascript",
+		"entry": "scripts/index.js"
+	}
+	],
+	"dependencies": [ 
+	{
+		"module_name": "@minecraft/server",
+		"version": "1.12.0-beta"
+	}
+	]
+}
