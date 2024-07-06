@@ -40,6 +40,11 @@ export class EntityWithPlayer{
         },interval);
         this.player.setDynamicProperty('stop', playerMove);     
     }
+}
+export class EntityWithPlayerStop{
+    constructor(player){
+        this.player = player;
+    }
     stopPlayerMoving(){
         mc.system.clearRun(this.player.getDynamicProperty('stop'));
         this.player.clearDynamicProperties();
