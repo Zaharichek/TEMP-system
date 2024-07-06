@@ -8,6 +8,6 @@ mc.world.afterEvents.playerInteractWithEntity.subscribe((data) => {
 });
 mc.world.afterEvents.itemUse.subscribe((data) => {
 	if(data.itemStack.typeId === 'minecraft:wooden_pickaxe'){
-		new EntityWithPlayer(data.target, data.source).stopPlayerMoving();
+		new EntityWithPlayer(entity, data.source).stopPlayerMoving();
 	}
 });
