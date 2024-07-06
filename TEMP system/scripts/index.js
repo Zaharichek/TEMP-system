@@ -1,5 +1,5 @@
 import * as mc from "@minecraft/server";
-import {EntityWithPlayer} from "./lib/system-core";
+import {EntityWithPlayer, EntityWithPlayerStop} from "./lib/system-core";
 
 mc.world.afterEvents.playerInteractWithEntity.subscribe((data) => {
 	if(data.itemStack.typeId === 'minecraft:stick'){
@@ -8,6 +8,6 @@ mc.world.afterEvents.playerInteractWithEntity.subscribe((data) => {
 });
 mc.world.afterEvents.itemUse.subscribe((data) => {
 	if(data.itemStack.typeId === 'minecraft:wooden_pickaxe'){
-		new EntityWithPlayer(entity, data.source).stopPlayerMoving();
+		new EntityWithPlayerStop(data.source).stopPlayerMoving();
 	}
 });
