@@ -6,39 +6,21 @@ export class EntityWithPlayer{
         this.player = player;
     }
     movePlayer(interval){
+        let playerSeat = this.player.dimension.spawnEntity('temp_system:player_seat', this.player.location);
+        playerSeat.getComponent('minecraft:rideable').addRider(this.player);
         let playerMove = mc.system.runInterval(() => {
-            let entity = this.entity;
+            let entity = (this.entity.getComponent("minecraft:riding") != undefined && this.entity.getComponent("minecraft:riding").entityRidingOn != undefined)? this.entity.getComponent("minecraft:riding").entityRidingOn:
+            this.entity;
             let player = this.player;
             if(!entity.isValid()){
                 mc.system.clearRun(playerMove);
                 player.clearDynamicProperties();
             }
-            let velocityX = entity.getVelocity().x;
-            let velocityZ = entity.getVelocity().z;
-            mc.system.runTimeout(() => {
-                player.setDynamicProperty('savedVelocityX', velocityX);
-                player.setDynamicProperty('savedVelocityZ', velocityZ);
-                mc.system.runTimeout(() => {
-                    player.setDynamicProperty('savedVelocityX1', velocityX);
-                    player.setDynamicProperty('savedVelocityZ1', velocityZ);
-                    mc.system.runTimeout(() => {
-                        player.setDynamicProperty('savedVelocityX2', velocityX);
-                        player.setDynamicProperty('savedVelocityZ2', velocityZ);
-                    },1);
-                },1);
-            },1);
-            let hS = ((velocityX + player.getDynamicProperty('savedVelocityX') + player.getDynamicProperty('savedVelocityX1') + player.getDynamicProperty('savedVelocityX2')) + (velocityZ + player.getDynamicProperty('savedVelocityZ') + player.getDynamicProperty('savedVelocityZ1') + player.getDynamicProperty('savedVelocityZ2'))) * 1.03915519041 * 1.14673976685;
-            let hDx = (velocityX + player.getDynamicProperty('savedVelocityX') + player.getDynamicProperty('savedVelocityX1') + player.getDynamicProperty('savedVelocityX2')) * 1.03915519041 * 1.14673976685;
-            let hDz = (velocityZ + player.getDynamicProperty('savedVelocityZ') + player.getDynamicProperty('savedVelocityZ1') + player.getDynamicProperty('savedVelocityZ2')) * 1.03915519041 * 1.14673976685;
-            if(velocityX !== 0 && velocityZ !== 0){
-                player.applyKnockback(velocityX, 0, Math.abs(hDx * 2), 0);
-                player.applyKnockback(0 ,velocityZ, Math.abs(hDz), 0);
-            }
-            else if(velocityX !== 0 || velocityZ !== 0){
-                player.applyKnockback(velocityX, velocityZ, Math.abs(hS), 0);
-            }
+            playerSeat.clearVelocity();
+            playerSeat.applyImpulse(entity.getVelocity());
         },interval);
-        this.player.setDynamicProperty('stop', playerMove);     
+        this.player.setDynamicProperty('stop', playerMove);
+        this.player.setDynamicProperty('entityRemove', playerSeat.id);     
     }
 }
 export class EntityWithPlayerStop{
@@ -47,6 +29,10 @@ export class EntityWithPlayerStop{
     }
     stopPlayerMoving(){
         mc.system.clearRun(this.player.getDynamicProperty('stop'));
+        if(mc.world.getEntity(this.player.getDynamicProperty('entityRemove')).isValid()){
+            mc.world.getEntity(this.player.getDynamicProperty('entityRemove')).getComponent('minecraft:rideable').ejectRiders();
+            mc.world.getEntity(this.player.getDynamicProperty('entityRemove')).remove();
+        }
         this.player.clearDynamicProperties();
     }
 }
