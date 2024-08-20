@@ -3,7 +3,7 @@ import {EntityWithPlayer, EntityWithPlayerStop} from "./lib/system-core";
 
 mc.world.afterEvents.playerInteractWithEntity.subscribe((data) => {
 	if(data.itemStack.typeId === 'minecraft:stick'){
-		new EntityWithPlayer(data.target, data.player).movePlayer(4);
+		new EntityWithPlayer(data.target, data.player).movePlayer(1);
 	}
 });
 mc.world.afterEvents.itemUse.subscribe((data) => {
