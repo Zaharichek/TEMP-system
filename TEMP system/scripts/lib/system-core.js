@@ -33,6 +33,7 @@ export class EntityWithPlayerStop{
             mc.world.getEntity(this.player.getDynamicProperty('entityRemove')).getComponent('minecraft:rideable').ejectRiders();
             mc.world.getEntity(this.player.getDynamicProperty('entityRemove')).remove();
         }
-        this.player.clearDynamicProperties();
+        this.player.setDynamicProperty('stop', undefined);
+        this.player.setDynamicProperty('entityRemove', undefined);
     }
 }
