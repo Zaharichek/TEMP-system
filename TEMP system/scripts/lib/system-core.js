@@ -14,7 +14,8 @@ export class EntityWithPlayer{
             let player = this.player;
             if(!entity.isValid()){
                 mc.system.clearRun(playerMove);
-                player.clearDynamicProperties();
+                player.setDynamicProperty('stop', undefined);
+                player.setDynamicProperty('entityRemove', undefined);
             }
             playerSeat.clearVelocity();
             playerSeat.applyImpulse(entity.getVelocity());
