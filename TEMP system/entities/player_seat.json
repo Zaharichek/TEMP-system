@@ -60,8 +60,7 @@
       "minecraft:physics": {
         "has_collision": true,
         "has_gravity": true
-      },
-      "minecraft:conditional_bandwidth_optimization": {}
+      }
     } 
   }
 }

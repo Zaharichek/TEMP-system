@@ -1,8 +1,8 @@
 {
 	"format_version": 2,
 	"header":{
-		"description":"TEMP system",
-		"name":"TEMP system beta exeperimental",
+		"description":"Made and support by Захаричек(Zaharicheck). Credits to Sonichec0",
+		"name":"TEMP system beta",
 		"min_engine_version": [
 		1,
 		20,
@@ -37,7 +37,7 @@
 	"dependencies": [ 
 	{
 		"module_name": "@minecraft/server",
-		"version": "1.12.0-beta"
+		"version": "1.17.0"
 	}
 	]
 }
